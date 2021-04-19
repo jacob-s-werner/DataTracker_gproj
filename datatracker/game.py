@@ -44,10 +44,14 @@ def game_search():
         elif request.form['title'] == "go home":
             return redirect(url_for('sample.index'))
         else:
-            results = []
+            matches = {}
             for gameObj in game_data:
-                if gameObj['name'].lower().find(game_title.lower()) != -1:
-                    results.append(gameObj)
+                gameTitle = gameObj['name'].lower()
+                if gameTitle.find(game_title.lower()) != -1:
+                    if gameTitle in matches:
+                        matches[gameTitle][1].append((gameObj['platform'], gameObj['globalSales']))
+                    else:
+                        matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
 
             return render_template('sample/postform.html', page_title=game_title)
     else:
@@ -55,9 +59,31 @@ def game_search():
 
 @bp.route('/genreSearch', methods=('GET', 'POST'))
 def genre_search():
-    message = "This text is coming from the 'sample.py' module, not the html file!"
-    phrase = "Python is cool!"
-    return render_template('sample/index.html', message=message, word=phrase)
+    if request.method == 'POST':
+        game_genre = request.form['genre']
+        game_year = request.form['year']
+        error = None
+
+        if not game_genre:
+            error = 'You must enter a genre'
+        if not game_year:
+            error = 'You must enter a year'
+        game_year = int(game_year)
+        if error is not None:
+            flash(error)
+        else:
+            result = 0
+            for gameObj in game_data:
+                gameGenre = gameObj['genre'].lower()
+                gameYear = gameObj['year']
+                if gameGenre.find(game_genre.lower()) != -1:
+                    if gameYear is not None and gameYear == game_year:
+                        result += gameObj['globalSales']
+
+            return render_template('game/genreSearchResult.html', page_title="Searc Results", page_genre = game_genre,\
+                                   page_year = game_year, num_sold = result)
+    else:
+        return render_template('game/genreSearch.html', page_title="PostForm from Module Function")
 
 @bp.route('/consoleWarWinner')
 def console_war_winner():
