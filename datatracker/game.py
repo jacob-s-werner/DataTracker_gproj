@@ -15,17 +15,17 @@ def best_selling_console():
     for game in game_data:
         platform = game['platform']
         sales = game['globalSales']
-
-        if platform not in sales_per_console:
-            sales_per_console[platform] = sales
-        else:
-            sales_per_console[platform] += sales
+        if game['year'] is not None and game['year'] > 2012:
+            if platform not in sales_per_console:
+                sales_per_console[platform] = sales
+            else:
+                sales_per_console[platform] += sales
 
     for console in sales_per_console:
         if sales_per_console[console] > best_selling_console[0]:
             best_selling_console = (sales_per_console[console], console)
 
-    message = f"The best selling console is {best_selling_console[1]} with {best_selling_console[0]} sales"
+    message = f"The best selling console is {best_selling_console[1]} since 2013 with {best_selling_console[0]} sales"
     phrase = "fasdfadf"
     return render_template('sample/index.html', message=message, word=phrase)
 
