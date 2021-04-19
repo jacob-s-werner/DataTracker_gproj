@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, redirect, flash, render_template, url_for, Blueprint
+from .game_database import game_data
 import requests, json
 
 bp = Blueprint('game', __name__)
@@ -6,13 +7,12 @@ bp = Blueprint('game', __name__)
 
 @bp.route('/gamingConsole')
 def best_selling_console():
-    response = requests.get('https://api.dccresource.com/api/games')
-    games = response.json()
+
 
     sales_per_console = {}
     best_selling_console = (0, "")
 
-    for game in games:
+    for game in game_data:
         platform = game['platform']
         sales = game['globalSales']
 
@@ -32,9 +32,26 @@ def best_selling_console():
 
 @bp.route('/game', methods=('GET', 'POST'))
 def game_search():
-    message = "This text is coming from the 'sample.py' module, not the html file!"
-    phrase = "Python is cool!"
-    return render_template('sample/index.html', message=message, word=phrase)
+    if request.method == 'POST':
+        game_title = request.form['title']
+        error = None
+
+        if not game_title:
+            error = 'You must enter a title'
+
+        if error is not None:
+            flash(error)
+        elif request.form['title'] == "go home":
+            return redirect(url_for('sample.index'))
+        else:
+            results = []
+            for gameObj in game_data:
+                if gameObj['name'].lower().find(game_title.lower()) != -1:
+                    results.append(gameObj)
+
+            return render_template('sample/postform.html', page_title=game_title)
+    else:
+        return render_template('sample/postform.html', page_title="PostForm from Module Function")
 
 @bp.route('/genreSearch', methods=('GET', 'POST'))
 def genre_search():
