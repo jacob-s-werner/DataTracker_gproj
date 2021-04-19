@@ -1,4 +1,6 @@
 import os
+import json
+import requests
 
 from flask import Flask
 
@@ -8,6 +10,7 @@ def create_app():
     app.config.from_mapping(
         SECRET_KEY='dev',
     )
+
 
     # ensure the instance folder exists
     try:
@@ -19,6 +22,7 @@ def create_app():
     app.register_blueprint(sample.bp)
     app.register_blueprint(game.bp)
     # app.add_url_rule('/', endpoint='index')
+
 
     @app.route('/hello')
     def hello():
