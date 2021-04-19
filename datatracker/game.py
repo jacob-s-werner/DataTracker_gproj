@@ -23,14 +23,12 @@ def best_selling_console():
                 sales_per_console[platform] += sales
 
     for console in sales_per_console:
-        if sales_per_console[console] > best_selling_console[0]:
-            best_selling_console = (sales_per_console[console], console)
         console_list.append((sales_per_console[console], console))
 
     console_list.sort(key = lambda x: -x[0])
     message = f"The best selling console is {best_selling_console[1]} since 2013 with {best_selling_console[0]} sales"
     phrase = "fasdfadf"
-    return render_template('sample/index.html', message=message, word=phrase, console_list=console_list)
+    return render_template('sample/index.html', message=message, word=phrase, display_list=console_list)
 
 
 @bp.route('/game', methods=('GET', 'POST'))

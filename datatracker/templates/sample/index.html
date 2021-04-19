@@ -31,12 +31,11 @@
 
 <script>
 const labels = [
-  {{f"'{console_list[0][1]}'"}},
-  {{f"'{console_list[1][1]}'"}},
-  {{f"'{console_list[2][1]}'"}},
-  {{f"'{console_list[3][1]}'"}},
-  {{f"'{console_list[4][1]}'"}},
-  {{f"'{console_list[5][1]}'"}}
+  '{{display_list[0][1]}}',
+  '{{display_list[1][1]}}',
+  '{{display_list[2][1]}}',
+  '{{display_list[3][1]}}',
+  '{{display_list[4][1]}}'
 ];
 const data = {
   labels: labels,
@@ -44,11 +43,11 @@ const data = {
     label: 'Platform Copies Sold',
     backgroundColor: 'rgb(255, 99, 132)',
     borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
+    data: [{{display_list[0][0]}}, {{display_list[1][0]}}, {{display_list[2][0]}}, {{display_list[3][0]}}, {{display_list[4][0]}}],
   }]
 };
 const config = {
-  type: 'line',
+  type: 'bar',
   data,
   options: {}
 };
