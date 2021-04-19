@@ -23,8 +23,42 @@
 {% endfor %}
 <p>(Always remember to close off your ifs and your loops!)</p>
 
+<div>
+  <canvas id="myChart"></canvas>
+</div>
 
 <a href="{{ url_for('sample.other_example') }}"> Next Page </a>
+
+<script>
+const labels = [
+  {{f"'{console_list[0][1]}'"}},
+  {{f"'{console_list[1][1]}'"}},
+  {{f"'{console_list[2][1]}'"}},
+  {{f"'{console_list[3][1]}'"}},
+  {{f"'{console_list[4][1]}'"}},
+  {{f"'{console_list[5][1]}'"}}
+];
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'Platform Copies Sold',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: [0, 10, 5, 2, 20, 30, 45],
+  }]
+};
+const config = {
+  type: 'line',
+  data,
+  options: {}
+};
+  // === include 'setup' then 'config' above ===
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
 {% endblock %}
 
 
