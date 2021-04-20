@@ -75,16 +75,22 @@ def genre_search():
         if error is not None:
             flash(error)
         else:
-            result = 0
+            platformData = {}
+            numSold = 0
             for gameObj in game_data:
                 gameGenre = gameObj['genre'].lower()
                 gameYear = gameObj['year']
                 if gameGenre.find(game_genre.lower()) != -1:
                     if gameYear is not None and gameYear == game_year:
-                        result += gameObj['globalSales']
+                        platform = gameObj['platform']
+                        numSold += gameObj['globalSales']
+                        if platform in platformData:
+                            platformData[platform] += gameObj['globalSales']
+                        else:
+                            platformData[platform] = gameObj['globalSales']
 
-            return render_template('game/genreSearchResult.html', page_title="Searc Results", page_genre = game_genre,\
-                                   page_year = game_year, num_sold = result)
+            return render_template('game/genreSearchResult.html', page_title="Search Results", platform_data = platformData,\
+                                   page_year = game_year, num_sold = numSold)
     else:
         return render_template('game/genreSearch.html', page_title="PostForm from Module Function")
 
