@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 style="text-align: center">{% block title %} {{ page_title }} {% endblock %}</h1>
+{% endblock %}
+{% block content %}
+
+<div class="container">
+  <canvas id="myChart"></canvas>
+</div>
+
+<script>
+const labels = [
+  {% for pair in game_data %}
+  '{{pair[0]}}: {{pair[1]}}',
+  {% endfor %}
+  ]
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'Best Selling Publisher per Console',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: [
+      {% for pair in game_data %}
+      {{pair[2]}},
+      {% endfor %}
+    ],
+  }]
+};
+const config = {
+  type: 'bar',
+  data,
+  options: {}
+};
+  // === include 'setup' then 'config' above ===
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+{% endblock %}

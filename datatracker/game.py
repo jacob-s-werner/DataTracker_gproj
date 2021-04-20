@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, redirect, flash, render_template, url_for, Blueprint
 from .game_database import game_data
-from .myChart import to_chart_data
 
 bp = Blueprint('game', __name__)
 
@@ -96,6 +95,33 @@ def genre_search():
 
 @bp.route('/consoleWarWinner')
 def console_war_winner():
-    message = "This text is coming from the 'sample.py' module, not the html file!"
-    phrase = "Python is cool!"
-    return render_template('sample/index.html', message=message, word=phrase)
+
+    publisher_by_platform = {}
+    results = []
+
+    for game in game_data:
+        platform = game['platform']
+        sales = game['globalSales']
+        publisher = game['publisher']
+
+        if platform not in publisher_by_platform:
+            publisher_by_platform[platform] = {}
+
+        publishers = publisher_by_platform[platform]
+        if publisher not in publishers:
+            publishers[publisher] = sales
+        else:
+            publishers[publisher] += sales
+
+    for platform in publisher_by_platform:
+        platform_sales = publisher_by_platform[platform]
+        publisher_name = ""
+        highest_sales = 0
+        for publisher in platform_sales:
+            if platform_sales[publisher] > highest_sales:
+                highest_sales = platform_sales[publisher]
+                publisher_name = publisher
+
+        results.append((platform, publisher_name, highest_sales))
+
+    return render_template('game/consoleWarWinner.html', page_title="Console War Winner", game_data=results)
