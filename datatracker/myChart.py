@@ -1,14 +1,11 @@
 from pychartjs import BaseChart, ChartType, Color
 import json
 
-class MyBarGraph(BaseChart)
-    type = ChartType.Bar
-
-    class data:
-        label = "Game"
-        data = [12, 19, 3, 17, 10]
-        backgroundColor = Color.Green
-
-    def __init__(self, game):
-        jsonStr = json.dumps(game)
-
+def to_chart_data(platform_and_sales):
+    '''
+    :param platform_and_sales: list of tuples of platform name and sale
+    :return: json object of the data for use with chart.js
+    '''
+    labels = ['one', 'two']
+    result = json.dumps(labels)
+    return result

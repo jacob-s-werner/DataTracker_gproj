@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, redirect, flash, render_template, url_for, Blueprint
 from .game_database import game_data
+from .myChart import to_chart_data
 
 bp = Blueprint('game', __name__)
 
@@ -51,10 +52,13 @@ def game_search():
                     else:
                         matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
 
-
-            return render_template('game/gameDetails.html', page_title=game_title, game_data=matches[game_title])
+            single_match = None
+            for key in matches:
+                single_match = matches[key]
+                break
+            return render_template('game/gameDetails.html', page_title=game_title, game_data=single_match)
     else:
-        return render_template('sample/postform.html', page_title="PostForm from Module Function", games=None)
+        return render_template('sample/postform.html', page_title="PostForm from Module Function", game_data=None)
 
 @bp.route('/genreSearch', methods=('GET', 'POST'))
 def genre_search():

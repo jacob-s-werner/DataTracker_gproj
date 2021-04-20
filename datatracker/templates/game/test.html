@@ -16,20 +16,15 @@
 </div>
 
 <script>
-const labels = [
-  '{{display_list[0][1]}}',
-  '{{display_list[1][1]}}',
-  '{{display_list[2][1]}}',
-  '{{display_list[3][1]}}',
-  '{{display_list[4][1]}}'
-];
+const labels =
+  ["1", "2", "3"]
 const data = {
   labels: labels,
   datasets: [{
     label: 'Platform Copies Sold',
     backgroundColor: 'rgb(255, 99, 132)',
     borderColor: 'rgb(255, 99, 132)',
-    data: [{{display_list[0][0]}}, {{display_list[1][0]}}, {{display_list[2][0]}}, {{display_list[3][0]}}, {{display_list[4][0]}}],
+    data: [1, 2, 3,],
   }]
 };
 const config = {
