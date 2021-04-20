@@ -48,19 +48,30 @@ def game_search():
             matches = {}
             for gameObj in game_data:
                 gameTitle = gameObj['name'].lower()
-                if gameTitle.find(game_title.lower()) != -1:
-                    if gameTitle in matches:
-                        matches[gameTitle][1].append((gameObj['platform'], gameObj['globalSales']))
-                    else:
-                        matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
+                if request.form.get('exact_match'):
+                    if gameTitle == game_title.lower():
+                        if gameTitle in matches:
+                            matches[gameTitle][1].append((gameObj['platform'], gameObj['globalSales']))
+                        else:
+                            matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
+                else:
+                    if gameTitle.find(game_title.lower()) != -1:
+                        if gameTitle in matches:
+                            matches[gameTitle][1].append((gameObj['platform'], gameObj['globalSales']))
+                        else:
+                            matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
 
-            single_match = None
+            i = 0
+            gameList = []
             for key in matches:
-                single_match = matches[key]
-                break
-            return render_template('game/gameDetails.html', page_title=game_title, game_data=single_match)
+                gameList.append(key)
+                i += 1
+                # Only up to 10
+                if i == 10:
+                    break
+            return render_template('game/gameDetails.html', page_title=game_title, game_data=matches, game_list=gameList, post_data=True)
     else:
-        return render_template('sample/postform.html', page_title="PostForm from Module Function", game_data=None)
+        return render_template('game/gameDetails.html', page_title="PostForm from Module Function", game_data=None, game_list=None, post_data=False)
 
 @bp.route('/genreSearch', methods=('GET', 'POST'))
 def genre_search():
