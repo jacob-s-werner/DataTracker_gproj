@@ -51,9 +51,10 @@ def game_search():
                     else:
                         matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
 
-            return render_template('sample/postform.html', page_title=game_title)
+
+            return render_template('game/gameDetails.html', page_title=game_title, game_data=matches[game_title])
     else:
-        return render_template('sample/postform.html', page_title="PostForm from Module Function")
+        return render_template('sample/postform.html', page_title="PostForm from Module Function", games=None)
 
 @bp.route('/genreSearch', methods=('GET', 'POST'))
 def genre_search():

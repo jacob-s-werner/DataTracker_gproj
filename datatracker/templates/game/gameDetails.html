@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 style="text-align: center">{% block title %} {{ page_title }} {% endblock %}</h1>
+{% endblock %}
+{% block content %}
+
+<div>
+  <p>
+    <strong>{{ message }}</strong>
+  </p>
+
+</div>
+<div class="container">
+  <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    var data = {{ chartJSON | safe }}
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, data);
+</script>
+{% endblock %}
