@@ -3,10 +3,13 @@ from .game_database import game_data
 
 bp = Blueprint('game', __name__)
 
+@bp.route('/index')
+def index():
+    message = "Welcome"
+    return render_template('game/index.html', message=message)
 
 @bp.route('/gamingConsole')
 def best_selling_console():
-
 
     sales_per_console = {}
     console_list = []

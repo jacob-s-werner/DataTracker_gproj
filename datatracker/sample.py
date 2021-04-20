@@ -8,11 +8,7 @@ def test():
     return "All good!"
 
 
-@bp.route('/sample')
-def index():
-    message = "This text is coming from the 'sample.py' module, not the html file!"
-    phrase = "Python is cool!"
-    return render_template('sample/index.html', message=message, word=phrase)
+
 
 
 @bp.route('/postform', methods=('GET', 'POST'))
