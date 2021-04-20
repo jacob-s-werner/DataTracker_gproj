@@ -21,13 +21,13 @@ def best_selling_console():
             if platform not in sales_per_console:
                 sales_per_console[platform] = sales
             else:
-                sales_per_console[platform] += sales
+                sales_per_console[platform] = round(sales_per_console[platform] + sales, 3)
 
     for console in sales_per_console:
         console_list.append((sales_per_console[console], console))
 
     console_list.sort(key = lambda x: -x[0])
-    message = f"The best selling console is {console_list[0][1]} since 2013 with {console_list[0][0]} Million sales"
+    message = f"Based on data after 2013, {console_list[0][1]} is the most popular console with {console_list[0][0]} Million games sold"
     return render_template('game/bestSellingConsole.html', message=message, display_list=console_list)
 
 
@@ -98,12 +98,12 @@ def genre_search():
                         platform = gameObj['platform']
                         numSold += gameObj['globalSales']
                         if platform in platformData:
-                            platformData[platform] += gameObj['globalSales']
+                            platformData[platform] = round(platformData[platform] + gameObj['globalSales'], 3)
                         else:
                             platformData[platform] = gameObj['globalSales']
-
-            return render_template('game/genreSearch.html', page_title="Search Results", platform_data = platformData, post_data=True, \
-                                   page_year = game_year, num_sold = numSold, page_genre = game_genre)
+            numSold = round(numSold, 3)
+            return render_template('game/genreSearch.html', page_title="Search Results", platform_data=platformData,\
+                                   page_year=game_year, num_sold=numSold, page_genre=game_genre, post_data=True)
     else:
         return render_template('game/genreSearch.html', page_title="Search a Genre", post_data=False)
 
@@ -125,7 +125,7 @@ def console_war_winner():
         if publisher not in publishers:
             publishers[publisher] = sales
         else:
-            publishers[publisher] += sales
+            publishers[publisher] = round(publishers[publisher] + sales, 3)
 
     for platform in publisher_by_platform:
         platform_sales = publisher_by_platform[platform]

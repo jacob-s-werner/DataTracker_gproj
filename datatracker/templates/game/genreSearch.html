@@ -16,43 +16,46 @@
   </form>
 {% if post_data == false %}
     <div>Please enter a search term to get started.</div>
+{% elif num_sold == 0 %}
+  <p>There is no data for {{page_genre}} in {{page_year}}</p>
+  <p>Please make sure that the genre is spelled correctly</p>
 {% else %}
-<p> {{page_genre}} games sold a total of {{num_sold}} copies in {{ page_year }}</p>
+  <p>In {{ page_year }}, {{num_sold}} copies of {{page_genre}} games were sold</p>
 
-<div class="container">
-  <canvas id="myChart"></canvas>
-</div>
+  <div class="container">
+    <canvas id="myChart"></canvas>
+  </div>
 
-<script>
-const labels = [
-  {% for key in platform_data %}
-  '{{key}}',
-  {% endfor %}
-  ]
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'Platform Copies Sold',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [
-      {% for key in platform_data %}
-      {{platform_data[key]}},
-      {% endfor %}
-    ],
-  }]
-};
-const config = {
-  type: 'bar',
-  data,
-  options: {}
-};
-  // === include 'setup' then 'config' above ===
+  <script>
+  const labels = [
+    {% for key in platform_data %}
+    '{{key}}',
+    {% endfor %}
+    ]
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Platform Copies Sold',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [
+        {% for key in platform_data %}
+        {{platform_data[key]}},
+        {% endfor %}
+      ],
+    }]
+  };
+  const config = {
+    type: 'bar',
+    data,
+    options: {}
+  };
+    // === include 'setup' then 'config' above ===
 
-  var myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
-</script>
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  </script>
 {% endif %}
 {% endblock %}
