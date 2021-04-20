@@ -14,4 +14,45 @@
     <input type="number" min="0" step="1" name="year" id="year" value="{{ request.form['year'] }}" required>
     <input type="submit" value="Submit">
   </form>
+{% if post_data == false %}
+    <div>Please enter a search term to get started.</div>
+{% else %}
+<p> {{page_genre}} games sold a total of {{num_sold}} copies in {{ page_year }}</p>
+
+<div class="container">
+  <canvas id="myChart"></canvas>
+</div>
+
+<script>
+const labels = [
+  {% for key in platform_data %}
+  '{{key}}',
+  {% endfor %}
+  ]
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'Platform Copies Sold',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: [
+      {% for key in platform_data %}
+      {{platform_data[key]}},
+      {% endfor %}
+    ],
+  }]
+};
+const config = {
+  type: 'bar',
+  data,
+  options: {}
+};
+  // === include 'setup' then 'config' above ===
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+{% endif %}
 {% endblock %}

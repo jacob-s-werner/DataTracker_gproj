@@ -9,27 +9,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-          <a class="navbar-brand" href="{{ url_for('game.index') }}">GameDatabaseSearcher</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarsExample02">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
+        <span>wakeupJJ</span>
+        <a class="navbar-brand" href="{{ url_for('game.index') }}">GameDatabaseSearcher</a>
+          <div class="collapse navbar-nav navbar-collapse" >
+              <span class="nav-item active">
                  <a class="nav-link" href="{{ url_for('game.best_selling_console') }}"> Best Selling Console Since 2013</a>
-                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('game.genre_search') }}"> Search for a Genre </a> |
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('game.game_search') }}"> Search for Game</a> |
-                </li>
-                <li class="nav-item active">
+                 </span>
+                <span class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('game.genre_search') }}"> Search for a Genre </a>
+                </span>
+                <span class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('game.game_search') }}"> Search for Game</a>
+                </span>
+                <span class="nav-item active">
                     <a class="nav-link" href="{{ url_for('game.console_war_winner') }}"> Best Selling Publisher per Console</a>
-                </li>
-            </ul>
+                </span>
           </div>
         </nav>
     <div class="container">

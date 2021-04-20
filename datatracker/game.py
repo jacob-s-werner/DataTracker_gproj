@@ -27,7 +27,7 @@ def best_selling_console():
         console_list.append((sales_per_console[console], console))
 
     console_list.sort(key = lambda x: -x[0])
-    message = f"The best selling console is {console_list[0][1]} since 2013 with {console_list[0][0]} sales"
+    message = f"The best selling console is {console_list[0][1]} since 2013 with {console_list[0][0]} Million sales"
     return render_template('game/bestSellingConsole.html', message=message, display_list=console_list)
 
 
@@ -71,7 +71,7 @@ def game_search():
                     break
             return render_template('game/gameDetails.html', page_title=game_title, game_data=matches, game_list=gameList, post_data=True)
     else:
-        return render_template('game/gameDetails.html', page_title="PostForm from Module Function", game_data=None, game_list=None, post_data=False)
+        return render_template('game/gameDetails.html', page_title="Search a Game", game_data=None, game_list=None, post_data=False)
 
 @bp.route('/genreSearch', methods=('GET', 'POST'))
 def genre_search():
@@ -102,10 +102,10 @@ def genre_search():
                         else:
                             platformData[platform] = gameObj['globalSales']
 
-            return render_template('game/genreSearchResult.html', page_title="Search Results", platform_data = platformData,\
-                                   page_year = game_year, num_sold = numSold)
+            return render_template('game/genreSearch.html', page_title="Search Results", platform_data = platformData, post_data=True, \
+                                   page_year = game_year, num_sold = numSold, page_genre = game_genre)
     else:
-        return render_template('game/genreSearch.html', page_title="PostForm from Module Function")
+        return render_template('game/genreSearch.html', page_title="Search a Genre", post_data=False)
 
 @bp.route('/consoleWarWinner')
 def console_war_winner():
@@ -138,4 +138,4 @@ def console_war_winner():
 
         results.append((platform, publisher_name, highest_sales))
 
-    return render_template('game/consoleWarWinner.html', page_title="Console War Winner", game_data=results)
+    return render_template('game/consoleWarWinner.html', page_title="Best Selling Publishers", game_data=results)
