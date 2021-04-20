@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, redirect, flash, render_template, url_for, Blueprint
 from .game_database import game_data
-import requests, json
 
 bp = Blueprint('game', __name__)
 
@@ -10,7 +9,6 @@ def best_selling_console():
 
 
     sales_per_console = {}
-    best_selling_console = (0, "")
     console_list = []
 
     for game in game_data:
@@ -26,9 +24,8 @@ def best_selling_console():
         console_list.append((sales_per_console[console], console))
 
     console_list.sort(key = lambda x: -x[0])
-    message = f"The best selling console is {best_selling_console[1]} since 2013 with {best_selling_console[0]} sales"
-    phrase = "fasdfadf"
-    return render_template('sample/index.html', message=message, word=phrase, display_list=console_list)
+    message = f"The best selling console is {console_list[0][1]} since 2013 with {console_list[0][0]} sales"
+    return render_template('game/bestSellingConsole.html', message=message, display_list=console_list)
 
 
 @bp.route('/game', methods=('GET', 'POST'))
