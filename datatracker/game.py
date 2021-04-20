@@ -3,7 +3,7 @@ from .game_database import game_data
 
 bp = Blueprint('game', __name__)
 
-@bp.route('/index')
+@bp.route('/')
 def index():
     message = "Welcome"
     return render_template('game/index.html', message=message)
