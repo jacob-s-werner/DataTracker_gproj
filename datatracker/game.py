@@ -30,7 +30,7 @@ def best_selling_console():
     console_list.sort(key = lambda x: -x[0])
     random_colors = random_color_generator(5)
 
-    message = f"Based on data after 2013, {console_list[0][1]} is the most popular console with {console_list[0][0]} Million games sold"
+    message = f"Based on data after 2013, {console_list[0][1]} is the best console to invest in with {console_list[0][0]} Million games sold"
     return render_template('game/bestSellingConsole.html', message=message, display_list=console_list[:5], colors=random_colors)
 
 
