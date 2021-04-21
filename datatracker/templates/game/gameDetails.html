@@ -34,9 +34,8 @@
             <span>{{data[0]}}: {{data[1]}}</span>
         {% endfor %}
     </div>
-    <br/>
     <div>Sales by platform:</div>
-    <div class="container">
+    <div class="container col-9">
         <canvas id="myChart"></canvas>
     </div>
     <script>
@@ -66,10 +65,7 @@
       const config = {
         type: 'pie',
         data,
-        options: {scales: {
-              xAxes: [{gridLines: { color: "#45A29E" }}],
-              yAxes: [{gridLines: { color: "#45A29E" }}]
-              }}
+        options: {}
       };
 
       // === include 'setup' then 'config' above ===
