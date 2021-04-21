@@ -55,16 +55,21 @@ def game_search():
                 if request.form.get('exact_match'):
                     if gameTitle == game_title.lower():
                         if gameTitle in matches:
+                            # Need to retrieve lowest ranked version
                             matches[gameTitle][1].append((gameObj['platform'], gameObj['globalSales']))
+                            if gameObj['rank'] < matches[gameTitle][0]['rank']:
+                                matches[gameTitle][0] = gameObj
                         else:
                             matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
                 else:
                     if gameTitle.find(game_title.lower()) != -1:
                         if gameTitle in matches:
+                            # Need to retrievel lowest ranked version
                             matches[gameTitle][1].append((gameObj['platform'], gameObj['globalSales']))
+                            if gameObj['rank'] < matches[gameTitle][0]['rank']:
+                                matches[gameTitle][0] = gameObj
                         else:
                             matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
-
             i = 0
             gameList = []
             for key in matches:

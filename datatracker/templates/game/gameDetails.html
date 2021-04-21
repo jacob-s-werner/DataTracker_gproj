@@ -20,7 +20,20 @@
     <div>Please enter a search term to get started.</div>
     <div>The 10 most relevant results will be shown.</div>
 {% elif game_list|length == 1%}
-    <div class="h3"><span class="h4 text-muted">Title:</span> {{game_data[game_list[0]][0]['name']}} <span class="h4 text-muted">Publisher:</span> {{game_data[game_list[0]][0]['publisher']}} <span class="h4 text-muted">Year:</span> {{game_data[game_list[0]][0]['year']}} <span class="h4 text-muted">Genre:</span> {{game_data[game_list[0]][0]['genre']}}</div>
+    <div class="h4">
+        <span class="h5 text-muted">Title:</span> {{game_data[game_list[0]][0]['name']}}
+        <span class="h5 text-muted">Publisher:</span> {{game_data[game_list[0]][0]['publisher']}}
+        <span class="h5 text-muted">Year:</span> {{game_data[game_list[0]][0]['year']}}
+        <span class="h5 text-muted">Genre:</span> {{game_data[game_list[0]][0]['genre']}}<br/>
+        <span class="h5 text-muted">Rank(Best Selling Version if Multiplatform):</span> {{game_data[game_list[0]][0]['rank']}}<br/>
+    </div>
+    <div>
+        <span class="h5 text-muted">Total Sales:</span> {{game_data[game_list[0]][0]['globalSales']}} million
+        <span class="h5 text-muted">By Console: </span>
+        {% for data in game_data[game_list[0]][1] %}
+            <span>{{data[0]}}: {{data[1]}}</span>
+        {% endfor %}
+    </div>
     <br/>
     <div>Sales by platform:</div>
     <div class="container">
@@ -60,10 +73,18 @@
 {% elif game_list|length > 1%}
   <div>More than 1 match found (Up to 10 displayed). Please narrow down the search</div>
   {% for entry in game_list %}
-    <div class="h3"><span class="h4 text-muted">Title:</span> {{game_data[entry][0]['name']}} <span class="h4 text-muted">Publisher:</span> {{game_data[entry][0]['publisher']}} <span class="h4 text-muted">Year:</span> {{game_data[entry][0]['year']}} <span class="h4 text-muted">Genre:</span> {{game_data[entry][0]['genre']}}</div>
+    <div class="h4">
+        <span class="h5 text-muted">Title:</span> {{game_data[entry][0]['name']}}
+        <span class="h5 text-muted">Publisher:</span> {{game_data[entry][0]['publisher']}}
+        <span class="h5 text-muted">Year:</span> {{game_data[entry][0]['year']}}
+        <span class="h5 text-muted">Genre:</span> {{game_data[entry][0]['genre']}}<br/>
+        <span class="h5 text-muted">Rank(Best Selling Version if Multiplatform):</span> {{game_data[entry][0]['rank']}}
+    </div>
     <div>
+        <span class="h5 text-muted">Total Sales:</span> {{game_data[entry][0]['globalSales']}} million
+        <span class="h5 text-muted">By Console: </span>
         {% for data in game_data[entry][1] %}
-            <span>{{data[0]}}: {{data[1]}} million copies sold</span>
+            <span>{{data[0]}}: {{data[1]}}</span>
         {% endfor %}
     </div>
     <br/>
