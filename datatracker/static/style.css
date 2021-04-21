@@ -8,7 +8,13 @@
   display: block;
 }
 
-
 .left-pad-50 {
    padding-left: 50px;
+}
+
+.nav-headerstay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
 }
