@@ -16,27 +16,33 @@
 </div>
 
 <script>
-const labels = [
-  '{{display_list[0][1]}}',
-  '{{display_list[1][1]}}',
-  '{{display_list[2][1]}}',
-  '{{display_list[3][1]}}',
-  '{{display_list[4][1]}}'
-];
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'Platform Copies Sold',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [{{display_list[0][0]}}, {{display_list[1][0]}}, {{display_list[2][0]}}, {{display_list[3][0]}}, {{display_list[4][0]}}],
-  }]
-};
-const config = {
-  type: 'bar',
-  data,
-  options: {}
-};
+  const gameLabels = [
+  {% for i in range(5) %}
+    '{{display_list[i][1]}}',
+  {% endfor %}
+  ];
+  const data = {
+    labels: gameLabels,
+    datasets: [
+      {
+        label: "Games Sold in Millions",
+        backgroundColor: [
+          'rgb({{colors[0][0]}}, {{colors[0][1]}}, {{colors[0][2]}})',
+          'rgb({{colors[1][0]}}, {{colors[1][1]}}, {{colors[1][2]}})',
+          'rgb({{colors[2][0]}}, {{colors[2][1]}}, {{colors[2][2]}})',
+          'rgb({{colors[3][0]}}, {{colors[3][1]}}, {{colors[3][2]}})',
+          'rgb({{colors[4][0]}}, {{colors[4][1]}}, {{colors[4][2]}})'
+          ],
+        borderColor: 'rgb(255, 99, 132)',
+        data: [{{display_list[0][0]}}, {{display_list[1][0]}}, {{display_list[2][0]}}, {{display_list[3][0]}}, {{display_list[4][0]}}]
+      }
+    ]
+  };
+  const config = {
+    type: 'bar',
+    data,
+    options: {}
+  };
   // === include 'setup' then 'config' above ===
 
   var myChart = new Chart(

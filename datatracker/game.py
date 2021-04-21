@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, redirect, flash, render_template, url_for, Blueprint
 from .game_database import game_data
+import random
 
 bp = Blueprint('game', __name__)
 
@@ -27,8 +28,11 @@ def best_selling_console():
         console_list.append((sales_per_console[console], console))
 
     console_list.sort(key = lambda x: -x[0])
+    random_colors = []
+    for i in range(5):
+        random_colors.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
     message = f"Based on data after 2013, {console_list[0][1]} is the most popular console with {console_list[0][0]} Million games sold"
-    return render_template('game/bestSellingConsole.html', message=message, display_list=console_list)
+    return render_template('game/bestSellingConsole.html', message=message, display_list=console_list[:5], colors=random_colors)
 
 
 @bp.route('/game', methods=('GET', 'POST'))
