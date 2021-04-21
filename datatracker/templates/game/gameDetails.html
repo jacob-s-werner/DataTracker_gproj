@@ -66,11 +66,14 @@
       const config = {
         type: 'pie',
         data,
-        options: {}
+        options: {scales: {
+              xAxes: [{gridLines: { color: "#45A29E" }}],
+              yAxes: [{gridLines: { color: "#45A29E" }}]
+              }}
       };
 
       // === include 'setup' then 'config' above ===
-
+      Chart.defaults.global.defaultFontColor = 'rgb(102, 252, 241)'
       var myChart = new Chart(
         document.getElementById('myChart'),
         config

@@ -33,7 +33,7 @@
           'rgb({{colors[3][0]}}, {{colors[3][1]}}, {{colors[3][2]}})',
           'rgb({{colors[4][0]}}, {{colors[4][1]}}, {{colors[4][2]}})'
           ],
-        borderColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(102, 252, 241)',
         data: [{{display_list[0][0]}}, {{display_list[1][0]}}, {{display_list[2][0]}}, {{display_list[3][0]}}, {{display_list[4][0]}}]
       }
     ]
@@ -41,10 +41,15 @@
   const config = {
     type: 'bar',
     data,
-    options: {}
+    options: {
+        scales: {
+              xAxes: [{gridLines: { color: "#45A29E" }}],
+              yAxes: [{gridLines: { color: "#45A29E" }}]
+              }
+        }
   };
   // === include 'setup' then 'config' above ===
-
+  Chart.defaults.global.defaultFontColor = 'rgb(102, 252, 241)'
   var myChart = new Chart(
     document.getElementById('myChart'),
     config

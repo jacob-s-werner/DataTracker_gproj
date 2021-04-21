@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, redirect, flash, render_template, url_for, Blueprint
+from flask import request, redirect, flash, render_template, url_for, Blueprint
 from .game_database import game_data
 import random
 
@@ -6,7 +6,7 @@ bp = Blueprint('game', __name__)
 
 @bp.route('/')
 def index():
-    message = "Welcome"
+    message = "Welcome to the GameData Vault!"
     return render_template('game/index.html', message=message)
 
 @bp.route('/gamingConsole')
@@ -63,7 +63,7 @@ def game_search():
                 else:
                     if gameTitle.find(game_title.lower()) != -1:
                         if gameTitle in matches:
-                            # Need to retrievel lowest ranked version
+                            # Need to retrieve lowest ranked version
                             matches[gameTitle][1].append((gameObj['platform'], gameObj['globalSales']))
                             if gameObj['rank'] < matches[gameTitle][0]['rank']:
                                 matches[gameTitle][0] = gameObj

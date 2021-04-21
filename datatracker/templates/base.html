@@ -9,8 +9,8 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav class="navbar navbar-expand navbar-dark bg-dark nav-headerstay">
-        <a class="navbar-brand left-pad-50" href="{{ url_for('game.index') }}">GameDatabaseSearcher</a>
+    <nav class="navbar navbar-expand navbar-dark nav-headerstay">
+        <a class="navbar-brand left-pad-50" href="{{ url_for('game.index') }}">GDV</a>
           <div class="collapse navbar-nav navbar-collapse" >
               <span class="nav-item active">
                  <a class="nav-link" href="{{ url_for('game.best_selling_console') }}">Best Selling Console</a>
@@ -36,14 +36,18 @@
     <div class="container">
         {% block content %}{% endblock %}
     </div>
-    <br/><br/>
+    <br/><br/><br/><br/>
 <footer class="footer">
+    <div></div>
   <div class="container">
-    <a class="btn btn-secondary" href="{{ url_for('game.best_selling_console') }}">Best Selling Console</a> |
-        <a class="btn btn-secondary" href="{{ url_for('game.game_search') }}">Game Search</a> |
-        <a class="btn btn-secondary" href="{{ url_for('game.genre_search') }}">Genre Search</a> |
-        <a class="btn btn-secondary" href="{{ url_for('game.console_war_winner') }}">Best Selling Publisher</a>
+        <a class="footer-button" href="{{ url_for('game.best_selling_console') }}">Best Selling Console</a> |
+        <a class="footer-button" href="{{ url_for('game.game_search') }}">Game Search</a> |
+        <a class="footer-button" href="{{ url_for('game.genre_search') }}">Genre Search</a> |
+        <a class="footer-button" href="{{ url_for('game.console_war_winner') }}">Best Selling Publisher</a>
   </div>
+    <div class="container secret-message">
+            Hello Darkness my old friend
+    </div>
 </footer>
 </body>
 </html>
