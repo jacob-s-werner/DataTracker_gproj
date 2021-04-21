@@ -136,7 +136,9 @@ def console_war_winner():
         else:
             publishers[publisher] = round(publishers[publisher] + sales, 3)
 
+    random_colors = []
     for platform in publisher_by_platform:
+        random_colors.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
         platform_sales = publisher_by_platform[platform]
         publisher_name = ""
         highest_sales = 0
@@ -146,5 +148,4 @@ def console_war_winner():
                 publisher_name = publisher
 
         results.append((platform, publisher_name, highest_sales))
-
-    return render_template('game/consoleWarWinner.html', page_title="Best Selling Publishers", game_data=results)
+    return render_template('game/consoleWarWinner.html', page_title="Best Selling Publishers", game_data=results, colors=random_colors)

@@ -18,8 +18,12 @@ const labels = [
 const data = {
   labels: labels,
   datasets: [{
-    label: 'Best Selling Publisher per Console',
-    backgroundColor: 'rgb(255, 99, 132)',
+    label: 'Game sale in millions',
+    backgroundColor: [
+      {% for color in colors %}
+      'rgb({{color[0]}}, {{color[1]}}, {{color[2]}})',
+      {% endfor %}
+    ],
     borderColor: 'rgb(255, 99, 132)',
     data: [
       {% for pair in game_data %}
