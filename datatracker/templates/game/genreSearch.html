@@ -20,7 +20,7 @@
   <p>There is no data for {{page_genre}} in {{page_year}}</p>
   <p>Please make sure that the genre is spelled correctly</p>
 {% else %}
-  <p>In {{ page_year }}, {{num_sold}} copies of {{page_genre}} games were sold</p>
+  <p>In {{ page_year }}, {{num_sold}} million copies of {{page_genre}} games were sold</p>
 
   <div class="container">
     <canvas id="myChart"></canvas>
@@ -35,8 +35,12 @@
   const data = {
     labels: labels,
     datasets: [{
-      label: 'Platform Copies Sold',
-      backgroundColor: 'rgb(255, 99, 132)',
+      label: 'Game Copies Sold (millions)',
+       backgroundColor: [
+          {% for i in range(0, colors|length) %}
+            'rgb({{colors[i][0]}}, {{colors[i][1]}}, {{colors[i][2]}})',
+          {% endfor %}
+          ],
       borderColor: 'rgb(255, 99, 132)',
       data: [
         {% for key in platform_data %}

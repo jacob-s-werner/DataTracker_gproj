@@ -28,9 +28,8 @@ def best_selling_console():
         console_list.append((sales_per_console[console], console))
 
     console_list.sort(key = lambda x: -x[0])
-    random_colors = []
-    for i in range(5):
-        random_colors.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+    random_colors = random_color_generator(5)
+
     message = f"Based on data after 2013, {console_list[0][1]} is the most popular console with {console_list[0][0]} Million games sold"
     return render_template('game/bestSellingConsole.html', message=message, display_list=console_list[:5], colors=random_colors)
 
@@ -70,6 +69,8 @@ def game_search():
                                 matches[gameTitle][0] = gameObj
                         else:
                             matches[gameTitle] = [gameObj, [(gameObj['platform'], gameObj['globalSales'])]]
+
+
             i = 0
             gameList = []
             for key in matches:
@@ -78,7 +79,13 @@ def game_search():
                 # Only up to 10
                 if i == 10:
                     break
-            return render_template('game/gameDetails.html', page_title=game_title, game_data=matches, game_list=gameList, post_data=True)
+
+            if len(gameList) == 1:
+                random_colors = random_color_generator(len(matches[gameList[0]][1]))
+            else:
+                random_colors = []
+
+            return render_template('game/gameDetails.html', page_title=game_title, game_data=matches, game_list=gameList, post_data=True, colors=random_colors)
     else:
         return render_template('game/gameDetails.html', page_title="Search a Game", game_data=None, game_list=None, post_data=False)
 
@@ -111,8 +118,11 @@ def genre_search():
                         else:
                             platformData[platform] = gameObj['globalSales']
             numSold = round(numSold, 3)
+
+            random_colors = random_color_generator(len(platformData))
+
             return render_template('game/genreSearch.html', page_title="Search Results", platform_data=platformData,\
-                                   page_year=game_year, num_sold=numSold, page_genre=game_genre, post_data=True)
+                                   page_year=game_year, num_sold=numSold, page_genre=game_genre, post_data=True, colors=random_colors)
     else:
         return render_template('game/genreSearch.html', page_title="Search a Genre", post_data=False)
 
@@ -148,4 +158,10 @@ def console_war_winner():
                 publisher_name = publisher
 
         results.append((platform, publisher_name, highest_sales))
-    return render_template('game/consoleWarWinner.html', page_title="Best Selling Publishers", game_data=results, colors=random_colors)
+    return render_template('game/consoleWarWinner.html', page_title="Best Selling Publisher per Console", game_data=results, colors=random_colors)
+
+def random_color_generator(end_range):
+    random_colors = []
+    for i in range(end_range):
+        random_colors.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+    return random_colors
