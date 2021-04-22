@@ -165,3 +165,49 @@ def random_color_generator(end_range):
     for i in range(end_range):
         random_colors.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
     return random_colors
+
+@bp.route('/bestSellingRegion')
+def best_selling_per_region():
+
+    j_exclusive_best_sellers = []
+    na_exclusive_best_sellers = []
+    eu_exclusive_best_sellers = []
+    other_exclusive_best_sellers = []
+
+    for game in game_data:
+        region_check = compare_game_sales_per_region(game)
+        if region_check == 'jpSales':
+            j_exclusive_best_sellers.append((game['name'], game['platform'], game['globalSales']))
+        elif region_check == 'euSales':
+            eu_exclusive_best_sellers.append((game['name'], game['platform'], game['globalSales']))
+        elif region_check == 'naSales':
+            na_exclusive_best_sellers.append((game['name'], game['platform'], game['globalSales']))
+        elif region_check == 'otherSales':
+            other_exclusive_best_sellers.append((game['name'], game['platform'], game['globalSales']))
+
+    j_exclusive_best_sellers.sort(key=lambda x: -x[2])
+    na_exclusive_best_sellers.sort(key=lambda x: -x[2])
+    eu_exclusive_best_sellers.sort(key=lambda x: -x[2])
+    other_exclusive_best_sellers.sort(key=lambda x: -x[2])
+
+    j_exclusive_best_sellers = j_exclusive_best_sellers[:min(len(j_exclusive_best_sellers),3)]
+    na_exclusive_best_sellers = na_exclusive_best_sellers[:min(len(na_exclusive_best_sellers), 3)]
+    eu_exclusive_best_sellers = eu_exclusive_best_sellers[:min(len(eu_exclusive_best_sellers), 3)]
+    other_exclusive_best_sellers = other_exclusive_best_sellers[:min(len(other_exclusive_best_sellers), 3)]
+
+    random_colors = random_color_generator(12)
+    message = f"Below are "
+    return render_template('game/bestSellingRegion.html', message=message, j_data=j_exclusive_best_sellers, colors=random_colors, \
+                           na_data=na_exclusive_best_sellers, eu_data=eu_exclusive_best_sellers, other_data=other_exclusive_best_sellers)
+
+def compare_game_sales_per_region(game):
+    if game['jpSales'] > 0 and game['naSales'] == 0 and game['otherSales'] == 0 and game['euSales'] == 0:
+        return 'jpSales'
+    elif game['euSales'] > 0 and game['naSales'] == 0 and game['otherSales'] == 0 and game['jpSales'] == 0:
+        return 'euSales'
+    elif game['naSales'] > 0 and game['jpSales'] == 0 and game['otherSales'] == 0 and game['euSales'] == 0:
+        return 'naSales'
+    elif game['otherSales'] > 0 and game['naSales'] == 0 and game['jpSales'] == 0 and game['euSales'] == 0:
+        return 'otherSales'
+    else:
+        return 'none'
