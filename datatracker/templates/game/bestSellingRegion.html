@@ -5,31 +5,63 @@
 {% endblock %}
 {% block content %}
 
+<div class="gray-header">Top 3 best selling games only released in NA:</div>
+  <ol>
+    {% for i in range(na_data|length) %}
+      <li>{{na_data[i][0]}} for {{na_data[i][1]}} with {{na_data[i][2]}} million copies sold</li>
+    {% endfor %}
+  </ol>
+<div class="gray-header">Top 3 best selling games only released in Japan:</div>
+  <ol>
+    {% for i in range(jp_data|length) %}
+      <li>{{jp_data[i][0]}} for {{jp_data[i][1]}} with {{jp_data[i][2]}} million copies sold</li>
+    {% endfor %}
+  </ol>
+<div class="gray-header">Top 3 best selling games only released in EU:</div>
+  <ol>
+    {% for i in range(eu_data|length) %}
+      <li>{{eu_data[i][0]}} for {{eu_data[i][1]}} with {{eu_data[i][2]}} million copies sold</li>
+    {% endfor %}
+  </ol>
+<div class="h6 gray-header">Honorable Mention: "Summer Athletics: The Ultimate Challenge" is the best selling game not released in NA, EU, or Japan with 0.18 million copies sold</div>
+
 <div class="container">
   <canvas id="myChart"></canvas>
 </div>
 
 <script>
-const labels = [
-  {% for pair in game_data %}
-  '{{pair[0]}}: {{pair[1]}}',
-  {% endfor %}
-  ]
+const labels = ['NA Exclusives','Japan Exclusives','EU Exclusives']
 const data = {
   labels: labels,
   datasets: [{
-    label: "Game Copies Sold (millions)",
+    label: "#1",
     backgroundColor: [
-      {% for color in colors %}
-      'rgb({{color[0]}}, {{color[1]}}, {{color[2]}})',
+      {% for i in range(3) %}
+      'rgb({{colors[i][0]}}, {{colors[i][1]}}, {{colors[i][2]}})',
       {% endfor %}
     ],
     borderColor: 'black',
-    data: [
-      {% for pair in game_data %}
-      {{pair[2]}},
+    data: [{{na_data[0][2]}}, {{jp_data[0][2]}}, {{eu_data[0][2]}}]
+  },
+  {
+    label: "#2",
+    backgroundColor: [
+      {% for i in range(3,6) %}
+      'rgb({{colors[i][0]}}, {{colors[i][1]}}, {{colors[i][2]}})',
       {% endfor %}
     ],
+    borderColor: 'black',
+    data: [{{na_data[1][2]}}, {{jp_data[1][2]}}, {{eu_data[1][2]}}]
+  },
+  {
+    label: "#3",
+    backgroundColor: [
+      {% for i in range(6,9) %}
+      'rgb({{colors[i][0]}}, {{colors[i][1]}}, {{colors[i][2]}})',
+      {% endfor %}
+    ],
+    borderColor: 'black',
+    data: [{{na_data[2][2]}}, {{jp_data[2][2]}}, {{eu_data[2][2]}}]
   }]
 };
 const config = {

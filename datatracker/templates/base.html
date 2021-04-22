@@ -26,6 +26,9 @@
                 <span class="nav-item active">
                     <a class="nav-link" href="{{ url_for('game.console_war_winner') }}">Best Selling Publisher</a>
                 </span>
+                <span class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('game.best_selling_per_region') }}">Region Exclusives</a>
+                </span>
           </div>
         </nav>
     <br/><br/>
@@ -45,7 +48,8 @@
         <a class="footer-button" href="{{ url_for('game.best_selling_console') }}">Best Selling Console</a> |
         <a class="footer-button" href="{{ url_for('game.game_search') }}">Game Search</a> |
         <a class="footer-button" href="{{ url_for('game.genre_search') }}">Genre Search</a> |
-        <a class="footer-button" href="{{ url_for('game.console_war_winner') }}">Best Selling Publisher</a>
+        <a class="footer-button" href="{{ url_for('game.console_war_winner') }}">Best Selling Publisher</a> |
+        <a class="footer-button" href="{{ url_for('game.best_selling_per_region') }}">Region Exclusives</a>
   </div>
     <div class="container secret-message">
             Hello Darkness my old friend

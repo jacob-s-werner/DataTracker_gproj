@@ -197,8 +197,8 @@ def best_selling_per_region():
 
     random_colors = random_color_generator(12)
     message = f"Below are "
-    return render_template('game/bestSellingRegion.html', message=message, j_data=j_exclusive_best_sellers, colors=random_colors, \
-                           na_data=na_exclusive_best_sellers, eu_data=eu_exclusive_best_sellers, other_data=other_exclusive_best_sellers)
+    return render_template('game/bestSellingRegion.html', message=message, jp_data=j_exclusive_best_sellers, colors=random_colors, \
+                           na_data=na_exclusive_best_sellers, eu_data=eu_exclusive_best_sellers)
 
 def compare_game_sales_per_region(game):
     if game['jpSales'] > 0 and game['naSales'] == 0 and game['otherSales'] == 0 and game['euSales'] == 0:
