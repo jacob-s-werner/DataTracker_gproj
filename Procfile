@@ -1,1 +1,1 @@
-web: gunicorn datatracker:__init__
+web: gunicorn app:app
